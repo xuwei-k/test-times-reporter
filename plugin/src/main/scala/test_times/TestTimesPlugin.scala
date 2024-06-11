@@ -67,7 +67,7 @@ object TestTimesPlugin extends AutoPlugin {
         .map(file)
         .filter(_.isFile) match {
         case Some(f) =>
-          IO.write(
+          IO.append(
             f,
             testTimesAggregate.value
           )
