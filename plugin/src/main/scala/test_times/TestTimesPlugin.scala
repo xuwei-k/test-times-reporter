@@ -91,7 +91,7 @@ object TestTimesPlugin extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[?]] = Def.settings(
     libraryDependencies += {
-      "com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version
+      "com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version % Test
     },
     Test / testOptions ++= {
       if (hasScalaTestDependency.value) {
