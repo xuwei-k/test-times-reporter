@@ -61,7 +61,7 @@ lazy val reporter = projectMatrix
   .settings(
     commonSettings,
     name := "scalatest-test-times-reporter",
-    libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.18" % Provided
+    libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.19" % Provided
   )
   .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.14", "3.3.3"))
 
