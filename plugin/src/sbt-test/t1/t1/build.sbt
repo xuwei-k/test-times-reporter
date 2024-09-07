@@ -10,13 +10,13 @@ common
 lazy val a1 = project
   .settings(
     common,
-    libraryDependencies += "org.scalatest" %% "scalatest-freespec" % "3.2.18" % Test
+    libraryDependencies += "org.scalatest" %% "scalatest-freespec" % "3.2.19" % Test
   )
 
 lazy val a2 = project
   .settings(
     common,
-    libraryDependencies += "org.scalatest" %% "scalatest-freespec" % "3.2.18" % Test
+    libraryDependencies += "org.scalatest" %% "scalatest-freespec" % "3.2.19" % Test
   )
 
 lazy val a3 = project
