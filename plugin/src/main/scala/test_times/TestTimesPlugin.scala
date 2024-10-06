@@ -1,10 +1,10 @@
 package test_times
 
-import sbt.*
+import sbt.{given, *}
 import sbt.Keys.*
 import java.io.File
 
-object TestTimesPlugin extends AutoPlugin {
+object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
 
   override def trigger: PluginTrigger =
     allRequirements
@@ -79,8 +79,7 @@ object TestTimesPlugin extends AutoPlugin {
   )
 
   private val hasScalaTestDependency: Def.Initialize[Task[Boolean]] = Def.task(
-    (Test / externalDependencyClasspath).value
-      .map(_.data)
+    testExternalDependencyClasspathValue.value
       .exists(
         _.getCanonicalPath.contains(
           Seq("org", "scalatest", s"scalatest-core_${scalaBinaryVersion.value}")
