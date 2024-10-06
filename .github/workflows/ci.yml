@@ -24,4 +24,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: temurin
-    - run: sbt -v scalafmtSbtCheck scalafmtCheckAll test publishLocal scripted
+    - run: sbt -v scalafmtSbtCheck scalafmtCheckAll test publishLocal pluginJVM2_12/scripted

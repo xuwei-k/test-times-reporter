@@ -1,10 +1,11 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 def Scala212 = "2.12.20"
+def Scala3 = "3.3.4"
 
 lazy val commonSettings = Def.settings(
   publishTo := sonatypePublishToBundle.value,
-  scalacOptions ++= Seq("-deprecation"),
+  scalacOptions ++= Seq("-deprecation", "-feature", "-language:implicitConversions"),
   Compile / doc / scalacOptions ++= {
     val hash = sys.process.Process("git rev-parse HEAD").lineStream_!.head
     if (scalaBinaryVersion.value != "3") {
@@ -58,18 +59,29 @@ lazy val commonSettings = Def.settings(
 
 lazy val reporter = projectMatrix
   .in(file("reporter"))
+  .defaultAxes()
   .settings(
     commonSettings,
     name := "scalatest-test-times-reporter",
     libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.19" % Provided
   )
-  .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.15", "3.3.4"))
+  .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.15", Scala3))
 
-lazy val plugin = project
+lazy val plugin = projectMatrix
   .in(file("plugin"))
+  .defaultAxes()
   .enablePlugins(SbtPlugin)
+  .jvmPlatform(scalaVersions = Seq(Scala212, Scala3))
   .settings(
     commonSettings,
+    pluginCrossBuild / sbtVersion := {
+      scalaBinaryVersion.value match {
+        case "2.12" =>
+          sbtVersion.value
+        case _ =>
+          "2.0.0-M2"
+      }
+    },
     scriptedBufferLog := false,
     scriptedLaunchOpts += ("-Dplugin.version=" + version.value),
     Compile / sourceGenerators += task {
