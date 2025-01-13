@@ -60,9 +60,9 @@ class ScalaTestTestTimesReporter extends Reporter {
 
 object ScalaTestTestTimesReporter {
   private case class Value(
-    startTime: Long,
-    endTime: Long,
-    startEvent: SuiteStarting,
-    endEvent: SuiteCompleted
+      startTime: Long,
+      endTime: Long,
+      startEvent: SuiteStarting,
+      endEvent: SuiteCompleted
   )
 }
