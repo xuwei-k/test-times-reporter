@@ -1,7 +1,7 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 def Scala212 = "2.12.20"
-def Scala3 = "3.3.4"
+def Scala3 = "3.3.5"
 
 lazy val commonSettings = Def.settings(
   publishTo := sonatypePublishToBundle.value,
