@@ -1,5 +1,6 @@
 package test_times
 
+import sbt./
 import sbt.Def
 import sbt.File
 import sbt.Task
