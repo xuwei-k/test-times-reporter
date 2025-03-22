@@ -1,7 +1,6 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 def Scala212 = "2.12.20"
-def Scala3 = "3.3.5"
 
 lazy val commonSettings = Def.settings(
   publishTo := sonatypePublishToBundle.value,
@@ -65,13 +64,13 @@ lazy val reporter = projectMatrix
     name := "scalatest-test-times-reporter",
     libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.19" % Provided
   )
-  .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.16", Scala3))
+  .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.16", "3.3.5"))
 
 lazy val plugin = projectMatrix
   .in(file("plugin"))
   .defaultAxes()
   .enablePlugins(SbtPlugin)
-  .jvmPlatform(scalaVersions = Seq(Scala212, Scala3))
+  .jvmPlatform(scalaVersions = Seq(Scala212, "3.6.4"))
   .settings(
     commonSettings,
     pluginCrossBuild / sbtVersion := {
@@ -79,7 +78,7 @@ lazy val plugin = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-M2"
+          "2.0.0-M4"
       }
     },
     scriptedBufferLog := false,
