@@ -70,7 +70,7 @@ lazy val plugin = projectMatrix
   .in(file("plugin"))
   .defaultAxes()
   .enablePlugins(SbtPlugin)
-  .jvmPlatform(scalaVersions = Seq(Scala212, "3.6.4"))
+  .jvmPlatform(scalaVersions = Seq(Scala212, "3.7.2"))
   .settings(
     commonSettings,
     pluginCrossBuild / sbtVersion := {
@@ -78,7 +78,7 @@ lazy val plugin = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-M4"
+          "2.0.0-M5"
       }
     },
     scriptedBufferLog := false,

@@ -34,13 +34,13 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
   override def globalSettings: Seq[Def.Setting[?]] = Def.settings(
     testTimesDirectory := (LocalRootProject / target).value / "test-times",
     testTimesAggregateFile := (LocalRootProject / target).value / "test-times.md",
-    testTimesWrite := {
+    testTimesWrite := Def.uncached {
       IO.write(
         testTimesAggregateFile.value,
         testTimesAggregate.value
       )
     },
-    testTimesAggregate := {
+    testTimesAggregate := Def.uncached {
       val log = streams.value.log
       (testTimesDirectory.value ** "*.txt")
         .get()
@@ -60,7 +60,7 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
         .map(x => s"1. ${x._1}")
         .mkString("## test times\n\n", "\n", "\n")
     },
-    testTimesWriteGitHubStepSummary := {
+    testTimesWriteGitHubStepSummary := Def.uncached {
       val key = "GITHUB_STEP_SUMMARY"
       sys.env
         .get(key)
