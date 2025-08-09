@@ -9,4 +9,8 @@ private[test_times] trait TestTimesCompat { self: TestTimesPlugin.type =>
     (Test / externalDependencyClasspath).value.map(_.data)
   }
 
+  implicit class DefOps(self: Def.type) {
+    def uncached[A](a: A): A = a
+  }
+
 }
