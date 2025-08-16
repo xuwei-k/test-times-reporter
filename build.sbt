@@ -3,7 +3,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 def Scala212 = "2.12.20"
 
 lazy val commonSettings = Def.settings(
-  publishTo := sonatypePublishToBundle.value,
+  publishTo := (if (isSnapshot.value) None else localStaging.value),
   scalacOptions ++= Seq("-deprecation", "-feature", "-language:implicitConversions"),
   Compile / doc / scalacOptions ++= {
     val hash = sys.process.Process("git rev-parse HEAD").lineStream_!.head
@@ -109,7 +109,7 @@ releaseProcess := Seq[ReleaseStep](
   commitReleaseVersion,
   tagRelease,
   releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommandAndRemaining("sonatypeBundleRelease"),
+  releaseStepCommandAndRemaining("sonaRelease"),
   setNextVersion,
   commitNextVersion,
   pushChanges
