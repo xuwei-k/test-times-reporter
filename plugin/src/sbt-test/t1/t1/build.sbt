@@ -1,4 +1,4 @@
-def scala3 = "3.7.1"
+def scala3 = "3.7.2"
 
 lazy val common = Def.settings(
   scalaVersion := scala3,
@@ -22,7 +22,7 @@ lazy val a2 = project
 lazy val a3 = project
   .settings(
     common,
-    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.18.0" % Test
+    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.18.1" % Test
   )
 
 lazy val a4 = project
