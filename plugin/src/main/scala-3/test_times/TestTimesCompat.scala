@@ -18,6 +18,6 @@ private[test_times] trait TestTimesCompat { self: TestTimesPlugin.type =>
 
   val testTimesRootSettings = Def.settings(
     testTimesDirectory := sbt.Keys.rootOutputDirectory.value.toFile / "test-times",
-    testTimesAggregateFile := sbt.Keys.rootOutputDirectory.value.toFile / "test-times.md",
+    testTimesAggregateFile := sbt.Keys.rootOutputDirectory.value.toFile / "test-times.md"
   )
 }
