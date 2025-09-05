@@ -32,8 +32,7 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
   }
 
   override def globalSettings: Seq[Def.Setting[?]] = Def.settings(
-    testTimesDirectory := (LocalRootProject / target).value / "test-times",
-    testTimesAggregateFile := (LocalRootProject / target).value / "test-times.md",
+    testTimesRootSettings,
     testTimesWrite := Def.uncached {
       IO.write(
         testTimesAggregateFile.value,
