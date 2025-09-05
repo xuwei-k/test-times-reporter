@@ -32,30 +32,34 @@ lazy val a4 = project
     autoScalaLibrary := false
   )
 
-TaskKey[Unit]("check") := {
-  assert((a1 / Test / testOptions).value.nonEmpty)
-  assert((a2 / Test / testOptions).value.nonEmpty)
-  assert((a3 / Test / testOptions).value.isEmpty)
-  assert((a4 / libraryDependencies).value.isEmpty)
+lazy val root = project.in(file("."))
+  .aggregate(a1, a2, a3, a4)
+  .settings(
+    InputKey[Unit]("check") := {
+      assert((a1 / Test / testOptions).value.nonEmpty)
+      assert((a2 / Test / testOptions).value.nonEmpty)
+      assert((a3 / Test / testOptions).value.isEmpty)
+      assert((a4 / libraryDependencies).value.isEmpty)
 
-  val lines = IO.readLines(testTimesAggregateFile.value)
-  assert(lines(0) == "## test times", lines)
-  assert(lines(1).isEmpty, lines)
-  val values = lines.drop(2).map { l =>
-    l.split(" ") match {
-      case Array("1.", x2, x3) =>
-        val n = x3.toLong
-        assert(n >= 0)
-        x2 -> n
+      val lines = IO.readLines(testTimesAggregateFile.value)
+      assert(lines(0) == "## test times", lines)
+      assert(lines(1).isEmpty, lines)
+      val values = lines.drop(2).map { l =>
+        l.split(" ") match {
+          case Array("1.", x2, x3) =>
+            val n = x3.toLong
+            assert(n >= 0)
+            x2 -> n
+        }
+      }
+      val expect = Seq(
+        "example.X1",
+        "example.X2",
+        "example.Y1",
+        "example.Y2"
+      ).map(_ -> 2).toMap
+      val actual = values.map(_._1).groupBy(identity).map { case (k, v) => k -> v.size }
+      assert(actual == expect, s"${actual} != ${expect}")
+      assert(values.sortBy(-_._2) == values)
     }
-  }
-  val expect = Seq(
-    "example.X1",
-    "example.X2",
-    "example.Y1",
-    "example.Y2"
-  ).map(_ -> 2).toMap
-  val actual = values.map(_._1).groupBy(identity).map { case (k, v) => k -> v.size }
-  assert(actual == expect)
-  assert(values.sortBy(-_._2) == values)
-}
+  )
