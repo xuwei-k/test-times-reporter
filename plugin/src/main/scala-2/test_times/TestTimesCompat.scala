@@ -15,7 +15,7 @@ private[test_times] trait TestTimesCompat { self: TestTimesPlugin.type =>
     def uncached[A](a: A): A = a
   }
 
-  val testTimesRootSettings = Def.settings(
+  val testTimesRootSettings: Seq[Def.Setting[?]] = Def.settings(
     testTimesDirectory := (LocalRootProject / target).value / "test-times",
     testTimesAggregateFile := (LocalRootProject / target).value / "test-times.md"
   )

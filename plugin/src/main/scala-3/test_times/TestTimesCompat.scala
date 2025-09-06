@@ -16,7 +16,7 @@ private[test_times] trait TestTimesCompat { self: TestTimesPlugin.type =>
     (Test / externalDependencyClasspath).value.map(x => converter.toPath(x.data).toFile)
   }
 
-  val testTimesRootSettings = Def.settings(
+  val testTimesRootSettings: Seq[Def.Setting[?]] = Def.settings(
     testTimesDirectory := sbt.Keys.rootOutputDirectory.value.toFile / "test-times",
     testTimesAggregateFile := sbt.Keys.rootOutputDirectory.value.toFile / "test-times.md"
   )
