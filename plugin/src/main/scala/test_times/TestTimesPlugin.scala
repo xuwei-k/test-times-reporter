@@ -79,12 +79,7 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
 
   private val hasScalaTestDependency: Def.Initialize[Task[Boolean]] = Def.task(
     testExternalDependencyClasspathValue.value
-      .exists(
-        _.getCanonicalPath.contains(
-          Seq("org", "scalatest", s"scalatest-core_${scalaBinaryVersion.value}")
-            .mkString(File.separator, File.separator, File.separator)
-        )
-      )
+      .exists(m => (m.organization == "org.scalatest") && (m.name == s"scalatest-core_${scalaBinaryVersion.value}"))
   )
 
   override def projectSettings: Seq[Def.Setting[?]] = Def.settings(
