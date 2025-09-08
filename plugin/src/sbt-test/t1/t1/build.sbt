@@ -1,4 +1,4 @@
-def scala3 = "3.7.2"
+def scala3 = "3.7.3"
 
 lazy val common = Def.settings(
   scalaVersion := scala3,
@@ -32,7 +32,8 @@ lazy val a4 = project
     autoScalaLibrary := false
   )
 
-lazy val root = project.in(file("."))
+lazy val root = project
+  .in(file("."))
   .aggregate(a1, a2, a3, a4)
   .settings(
     InputKey[Unit]("check") := {
