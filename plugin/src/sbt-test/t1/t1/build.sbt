@@ -32,7 +32,8 @@ lazy val a4 = project
     autoScalaLibrary := false
   )
 
-lazy val root = project.in(file("."))
+lazy val root = project
+  .in(file("."))
   .aggregate(a1, a2, a3, a4)
   .settings(
     InputKey[Unit]("check") := {
