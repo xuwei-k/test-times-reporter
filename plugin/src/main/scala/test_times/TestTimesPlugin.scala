@@ -83,8 +83,13 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
   )
 
   override def projectSettings: Seq[Def.Setting[?]] = Def.settings(
-    libraryDependencies += {
-      "com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version % Test
+    libraryDependencies ++= {
+      scalaBinaryVersion.value match {
+        case "2.12" | "2.13" | "3" =>
+          Seq("com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version % Test)
+        case _ =>
+          Nil
+      }
     },
     Test / testOptions ++= {
       if (hasScalaTestDependency.value) {
