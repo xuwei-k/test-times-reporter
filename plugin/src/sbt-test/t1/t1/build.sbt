@@ -2,7 +2,7 @@ def scala3 = "3.7.3"
 
 lazy val common = Def.settings(
   scalaVersion := scala3,
-  crossScalaVersions := Seq(scala3, "2.13.16")
+  crossScalaVersions := Seq(scala3, "2.13.17")
 )
 
 common
