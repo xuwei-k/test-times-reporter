@@ -1,4 +1,4 @@
-def scala3 = "3.7.3"
+def scala3 = "3.7.4"
 
 lazy val common = Def.settings(
   scalaVersion := scala3,
