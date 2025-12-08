@@ -1,6 +1,6 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
-def Scala212 = "2.12.20"
+def Scala212 = "2.12.21"
 
 lazy val commonSettings = Def.settings(
   publishTo := (if (isSnapshot.value) None else localStaging.value),
