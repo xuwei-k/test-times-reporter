@@ -22,7 +22,7 @@ lazy val a2 = project
 lazy val a3 = project
   .settings(
     common,
-    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.18.1" % Test
+    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.19.0" % Test
   )
 
 lazy val a4 = project
