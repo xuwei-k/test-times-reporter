@@ -58,7 +58,7 @@ lazy val commonSettings = Def.settings(
 
 lazy val reporter = projectMatrix
   .in(file("reporter"))
-  .defaultAxes()
+  .defaultAxes(VirtualAxis.jvm)
   .settings(
     commonSettings,
     name := "scalatest-test-times-reporter",
@@ -68,7 +68,7 @@ lazy val reporter = projectMatrix
 
 lazy val plugin = projectMatrix
   .in(file("plugin"))
-  .defaultAxes()
+  .defaultAxes(VirtualAxis.jvm)
   .enablePlugins(SbtPlugin)
   .jvmPlatform(scalaVersions = Seq(Scala212, "3.8.2"))
   .settings(
