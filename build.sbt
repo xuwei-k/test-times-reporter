@@ -1,5 +1,7 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
+def sbt2 = "2.0.0-RC11"
+
 def Scala212 = "2.12.21"
 
 lazy val commonSettings = Def.settings(
@@ -70,7 +72,7 @@ lazy val plugin = projectMatrix
   .in(file("plugin"))
   .defaultAxes(VirtualAxis.jvm)
   .enablePlugins(SbtPlugin)
-  .jvmPlatform(scalaVersions = Seq(Scala212, "3.8.2"))
+  .jvmPlatform(scalaVersions = Seq(Scala212, scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt2)))
   .settings(
     commonSettings,
     pluginCrossBuild / sbtVersion := {
@@ -78,7 +80,7 @@ lazy val plugin = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC11"
+          sbt2
       }
     },
     scriptedBufferLog := false,
