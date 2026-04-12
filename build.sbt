@@ -28,10 +28,10 @@ lazy val commonSettings = Def.settings(
         <url>https://github.com/xuwei-k</url>
       </developer>
     </developers>
-      <scm>
-        <url>git@github.com:xuwei-k/test-times-reporter.git</url>
-        <connection>scm:git:git@github.com:xuwei-k/test-times-reporter.git</connection>
-      </scm>
+    <scm>
+      <url>git@github.com:xuwei-k/test-times-reporter.git</url>
+      <connection>scm:git:git@github.com:xuwei-k/test-times-reporter.git</connection>
+    </scm>
   ),
   organization := "com.github.xuwei-k",
   homepage := Some(url("https://github.com/xuwei-k/test-times-reporter")),
