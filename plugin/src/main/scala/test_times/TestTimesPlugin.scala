@@ -77,16 +77,15 @@ object TestTimesPlugin extends AutoPlugin with TestTimesCompat {
     testTimesCount := 50
   )
 
-  private val hasScalaTestDependency: Def.Initialize[Task[Boolean]] = Def.task(
-    testExternalDependencyClasspathValue.value
-      .exists(m => (m.organization == "org.scalatest") && (m.name == s"scalatest-core_${scalaBinaryVersion.value}"))
-  )
-
   override def projectSettings: Seq[Def.Setting[?]] = Def.settings(
     libraryDependencies ++= {
       scalaBinaryVersion.value match {
         case "2.12" | "2.13" | "3" =>
-          Seq("com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version % Test)
+          Seq(
+            withJVMPlatform(
+              "com.github.xuwei-k" %% "scalatest-test-times-reporter" % TestTimesBuildInfo.version % Test
+            )
+          )
         case _ =>
           Nil
       }
