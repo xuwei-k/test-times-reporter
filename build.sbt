@@ -64,6 +64,9 @@ lazy val reporter = projectMatrix
   .settings(
     commonSettings,
     name := "scalatest-test-times-reporter",
+    scalacOptions ++= Seq(
+      "-release:8"
+    ),
     libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.20" % Provided
   )
   .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.18", "3.3.7"))
@@ -81,6 +84,14 @@ lazy val plugin = projectMatrix
           sbtVersion.value
         case _ =>
           sbt2
+      }
+    },
+    scalacOptions ++= {
+      scalaBinaryVersion.value match {
+        case "3" =>
+          Nil
+        case _ =>
+          Seq("-release:8")
       }
     },
     scriptedBufferLog := false,
