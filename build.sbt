@@ -1,14 +1,15 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
 def sbt2 = "2.0.0-RC12"
+def sbt1 = "1.12.9"
 
-def Scala212 = "2.12.21"
+def Scala212 = scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt1)
 
 lazy val commonSettings = Def.settings(
   publishTo := (if (isSnapshot.value) None else localStaging.value),
   scalacOptions ++= Seq("-deprecation", "-feature", "-language:implicitConversions"),
   Compile / doc / scalacOptions ++= {
-    val hash = sys.process.Process("git rev-parse HEAD").lineStream_!.head
+    val hash = sys.process.Process("git rev-parse HEAD").lazyLines_!.head
     if (scalaBinaryVersion.value != "3") {
       Seq(
         "-sourcepath",
@@ -81,7 +82,7 @@ lazy val plugin = projectMatrix
     pluginCrossBuild / sbtVersion := {
       scalaBinaryVersion.value match {
         case "2.12" =>
-          sbtVersion.value
+          sbt1
         case _ =>
           sbt2
       }
@@ -110,20 +111,20 @@ lazy val plugin = projectMatrix
     name := "test-times-plugin"
   )
 
-commonSettings
-
-publish / skip := true
-
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepCommandAndRemaining("publishSigned"),
-  releaseStepCommandAndRemaining("sonaRelease"),
-  setNextVersion,
-  commitNextVersion,
-  pushChanges
+val root = rootProject.autoAggregate.settings(
+  commonSettings,
+  publish / skip := true,
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    releaseStepCommandAndRemaining("publishSigned"),
+    releaseStepCommandAndRemaining("sonaRelease"),
+    setNextVersion,
+    commitNextVersion,
+    pushChanges
+  )
 )
