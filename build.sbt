@@ -1,6 +1,6 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
-def sbt2 = "2.0.0-RC16"
+def sbt2 = "2.0.0"
 def sbt1 = "1.12.10"
 
 def Scala212 = scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt1)
