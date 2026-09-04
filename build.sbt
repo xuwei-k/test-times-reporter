@@ -74,7 +74,7 @@ lazy val reporter = projectMatrix
     ),
     libraryDependencies += "org.scalatest" %% "scalatest-core" % "3.2.20" % Provided
   )
-  .jvmPlatform(scalaVersions = Seq(Scala212, "2.13.18", "3.3.8"))
+  .jvmPlatform(scalaVersions = Seq(Scala212, "3.9.0", "3.3.8"))
 
 lazy val plugin = projectMatrix
   .in(file("plugin"))
