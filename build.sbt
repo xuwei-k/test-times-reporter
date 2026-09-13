@@ -39,9 +39,9 @@ lazy val commonSettings = Def.settings(
     </scm>
   ),
   organization := "com.github.xuwei-k",
-  homepage := Some(url("https://github.com/xuwei-k/test-times-reporter")),
+  homepage := Some(uri("https://github.com/xuwei-k/test-times-reporter")),
   licenses := List(
-    "MIT License" -> url("https://opensource.org/licenses/mit-license")
+    "MIT License" -> uri("https://opensource.org/licenses/mit-license")
   ),
   scalacOptions ++= {
     scalaBinaryVersion.value match {
